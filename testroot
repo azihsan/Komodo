@@ -1,0 +1,2 @@
+app_name = komodo
+cli_args = '--error'

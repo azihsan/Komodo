@@ -1,7 +1,7 @@
 #include "DislocationDensityAux.h"
 #include "ComputeDislocationDensity1DEigenStrain.h"
 
-template<>
+template <>
 InputParameters
 validParams<DislocationDensityAux>()
 {
@@ -11,11 +11,12 @@ validParams<DislocationDensityAux>()
 }
 
 DislocationDensityAux::DislocationDensityAux(const InputParameters & parameters)
-: MaterialAuxBase<Real>(parameters)
-  {
-  }
+  : MaterialAuxBase<Real>(parameters)
+{
+}
 
 Real
-DislocationDensityAux::getRealValue(){
+DislocationDensityAux::getRealValue()
+{
   return _prop[_qp];
 }

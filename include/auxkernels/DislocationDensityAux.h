@@ -3,22 +3,21 @@
 
 #include "MaterialAuxBase.h"
 
-//forward declarations
+// forward declarations
 
 class DislocationDensityAux;
 
-template<>
+template <>
 InputParameters validParams<DislocationDensityAux>();
 
-class DislocationDensityAux:public MaterialAuxBase<Real>
+class DislocationDensityAux : public MaterialAuxBase<Real>
 {
-  public:
-     DislocationDensityAux(const InputParameters & parameters);
-     virtual ~DislocationDensityAux(){}
+public:
+  DislocationDensityAux(const InputParameters & parameters);
+  virtual ~DislocationDensityAux() {}
 
-  protected:
-    virtual Real getRealValue();
-
+protected:
+  virtual Real getRealValue();
 };
 
-#endif //DISLOCATIONDENSITYAUX
+#endif // DISLOCATIONDENSITYAUX

@@ -6,9 +6,8 @@
 
 // New Material in Tensor Mechanics
 #include "ComputeDislocationDensity1DEigenStrain.h"
-//New Aux kernel for exploit data from Dislocation density
+// New Aux kernel for exploit data from Dislocation density
 #include "DislocationDensityAux.h"
-
 
 template <>
 InputParameters
@@ -49,16 +48,14 @@ KomodoApp::registerObjects(Factory & factory)
   // Register  dislocation density 1D eigenstrain
   registerMaterial(ComputeDislocationDensity1DEigenStrain);
 
-  //new register dislocation density aux
+  // new register dislocation density aux
   registerAux(DislocationDensityAux);
-
 }
 
 void
 KomodoApp::associateSyntax(Syntax & /*syntax*/, ActionFactory & /*action_factory*/)
 {
   /* Uncomment Syntax and ActionFactory parameters and register your new production objects here! */
-
 }
 
 void

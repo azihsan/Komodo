@@ -1,3 +1,12 @@
+//* This file is part of the MOOSE framework
+//* https://www.mooseframework.org
+//*
+//* All rights reserved, see COPYRIGHT for full restrictions
+//* https://github.com/idaholab/moose/blob/master/COPYRIGHT
+//*
+//* Licensed under LGPL 2.1, please see LICENSE for details
+//* https://www.gnu.org/licenses/lgpl-2.1.html
+
 #include "KomodoApp.h"
 #include "Moose.h"
 #include "AppFactory.h"
@@ -8,6 +17,9 @@
 #include "ComputeDislocationDensity1DEigenStrain.h"
 // New Aux kernel for exploit data from Dislocation density
 #include "DislocationDensityAux.h"
+
+// New MeshModifier for defining 1D dislocation bundle
+#include "SubdomainDislocationBundle.h"
 
 template <>
 InputParameters
@@ -50,6 +62,9 @@ KomodoApp::registerObjects(Factory & factory)
 
   // new register dislocation density aux
   registerAux(DislocationDensityAux);
+
+  // new register subdomain dislocation bundle
+  registerMeshModifier(SubdomainDislocationBundle);
 }
 
 void

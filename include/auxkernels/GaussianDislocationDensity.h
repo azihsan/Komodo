@@ -3,7 +3,6 @@
 
 #include "AuxKernel.h"
 
-
 class GaussianDislocationDensity;
 
 template <>
@@ -41,12 +40,10 @@ protected:
 
   const unsigned int _N; // number of dislocation of a bundle
 
-
 private:
-    Real _x_min;
+  Real _x_min;
 
-    Real _x_max;
-
+  Real _x_max;
 };
 
 #endif // GAUSSIANDISLOCATIONDENSITY_H

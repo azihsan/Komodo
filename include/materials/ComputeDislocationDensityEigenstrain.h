@@ -20,10 +20,9 @@ protected:
 
   const Real _b; // burgers vector in 1D
 
-  const VariableValue & _s_var; //variable field value of slip distribution  
+  const VariableValue & _s_var; // variable field value of slip distribution
 
   MaterialProperty<Real> & _s; // plastic slip
-
 };
 
 inline Real

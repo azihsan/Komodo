@@ -26,8 +26,6 @@ protected:
 
 private:
   Real _delta_x;
-
-
 };
 
 #endif // SLIPELEMENT_H

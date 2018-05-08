@@ -45,16 +45,14 @@ protected:
 
   const unsigned int _N; // number of dislocation of a bundle
 
-
 private:
-    Real _x_min;
+  Real _x_min;
 
-    Real _x_max;
+  Real _x_max;
 
-    Real _y_min;
+  Real _y_min;
 
-    Real _y_max;
-
+  Real _y_max;
 };
 
 #endif // GAUSSIAN2DDISLOCATIONDENSITY_H

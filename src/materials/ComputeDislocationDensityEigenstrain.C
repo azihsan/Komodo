@@ -1,7 +1,6 @@
 #include "ComputeDislocationDensityEigenstrain.h"
 #include "MooseMesh.h"
 
-
 template <>
 InputParameters
 validParams<ComputeDislocationDensityEigenstrain>()

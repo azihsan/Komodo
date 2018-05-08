@@ -6,18 +6,17 @@ InputParameters
 validParams<SlipElement>()
 {
   InputParameters params = validParams<AuxKernel>();
-  params.addClassDescription(
-      "Compute Slip due to dislocation density of an element");
+  params.addClassDescription("Compute Slip due to dislocation density of an element");
   params.addRequiredCoupledVar("positive_dislocation", "positive dislocation");
   params.addRequiredCoupledVar("negative_dislocation", "negative dislocation");
   return params;
 }
 
 SlipElement::SlipElement(const InputParameters & parameters)
- : AuxKernel(parameters),
-   _rho_positive(coupledValue("positive_dislocation")),
-   _rho_negative(coupledValue("negative_dislocation")),
-   _delta_x(0)
+  : AuxKernel(parameters),
+    _rho_positive(coupledValue("positive_dislocation")),
+    _rho_negative(coupledValue("negative_dislocation")),
+    _delta_x(0)
 {
 }
 
@@ -38,7 +37,6 @@ SlipElement::computeValue()
       x_max = node[0](0);
   }
   _delta_x = std::abs(x_max - x_min);
-
 
   Real K = _rho_positive[_qp] - _rho_negative[_qp]; // calculate excess density
 

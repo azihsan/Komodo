@@ -6,8 +6,7 @@ InputParameters
 validParams<GaussianDislocationDensity>()
 {
   InputParameters params = validParams<AuxKernel>();
-  params.addClassDescription(
-      "Compute dislocation density based on gaussian distribution");
+  params.addClassDescription("Compute dislocation density based on gaussian distribution");
 
   params.addRequiredParam<Real>("x_center", "center of gaussian dislocation density");
   params.addParam<Real>("sigma_x", 1.0, "Spread of the curve in the x direction (sigma_x)");
@@ -26,9 +25,11 @@ GaussianDislocationDensity::GaussianDislocationDensity(const InputParameters & p
 }
 
 Real
-GaussianDislocationDensity::computeValue(){
-  Real h = 1 ;  // height of slip lamella
-  Real x = _q_point[_qp](0); // local x coordinate of bundle fed into 1D gaussian distribution equation
+GaussianDislocationDensity::computeValue()
+{
+  Real h = 1; // height of slip lamella
+  Real x =
+      _q_point[_qp](0); // local x coordinate of bundle fed into 1D gaussian distribution equation
   Real A = _N / (h * _sigma_x * std::sqrt(2)); // Amplitude of dislocation bundle
 
   if (x >= _x_min && x <= _x_max)

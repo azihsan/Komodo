@@ -4,18 +4,13 @@
 
 [Mesh]
   type = GeneratedMesh
-  dim = 2
-  nx = 7
-  ny = 2
-  nz = 0
-[]
-
-[MeshModifiers]
-  [./subdomain_id]
-    type = AssignElementSubdomainID
-    subdomain_ids = '0 1 1 1 1 1 0
-                    0 2 2 2 2 0 0'
-  [../]
+  dim  = 2
+  xmax = 40
+  xmin = 0
+  ymax = 40
+  ymin = 0
+  nx   = 100
+  ny   = 100
 []
 
 [Variables]
@@ -26,7 +21,6 @@
 []
 
 [AuxVariables]
-
   [./strain_yy]
     order = CONSTANT
     family = MONOMIAL
@@ -36,6 +30,18 @@
     family = MONOMIAL
   [../]
   [./strain_zz]
+    order = CONSTANT
+    family = MONOMIAL
+  [../]
+  [./rho_positive]
+    order = CONSTANT
+    family = MONOMIAL
+  [../]
+  [./rho_negative]
+    order = CONSTANT
+    family = MONOMIAL
+  [../]
+  [./slip_element]
     order = CONSTANT
     family = MONOMIAL
   [../]
@@ -64,6 +70,28 @@
     index_i = 2
     index_j = 2
   [../]
+  [./rho_positive]
+    type = Gaussian2DDislocationDensity
+    x_center = 10
+    y_center = 10
+    sigma_x  = 5
+    sigma_y = 5
+    variable = rho_positive
+  [../]
+  [./rho_negative]
+    type = Gaussian2DDislocationDensity
+    x_center = 30
+    y_center = 30
+    sigma_x  = 5
+    sigma_y = 5
+    variable = rho_negative
+  [../]
+  [./slip_element]
+    type = SlipElement
+    positive_dislocation = rho_positive
+    negative_dislocation = rho_negative
+    variable = slip_element
+  [../]
 []
 
 [BCs]
@@ -84,50 +112,26 @@
 [Materials]
   [./elasticity_tensor]
     type = ComputeIsotropicElasticityTensor
-    block = '0 1 2'
     youngs_modulus = 2.1e5
     poissons_ratio = 0.3
   [../]
 
-  [./eigen_strain1]
-    type=ComputeDislocationDensity1DEigenStrain
-    block = 1
-    n=100
-    burgers_vector =  0.0001
-    eigenstrain_name = eigenstrain1
-    constant_on = ELEMENT
-  [../]
-
-  [./eigen_strain2]
-    type=ComputeDislocationDensity1DEigenStrain
-    block = 2
-    n=100
-    burgers_vector =  0.0001
-    eigenstrain_name = eigenstrain2
-    constant_on = ELEMENT
+  [./eigen_strain]
+    type = ComputeDislocationDensityEigenstrain
+    burgers_vector =  0.001
+    slip_distribution = slip_element
+    eigenstrain_name = dislocation_eigenstrain
   [../]
 
 
-  [./small_strain1]
+  [./small_strain]
     type=ComputeSmallStrain
-    block= 1
-    eigenstrain_names = 'eigenstrain1'
+    eigenstrain_names = 'dislocation_eigenstrain'
   [../]
 
-  [./small_strain2]
-    type=ComputeSmallStrain
-    block= 2
-    eigenstrain_names = 'eigenstrain2'
-  [../]
-
-  [./small_strain3]
-    type=ComputeSmallStrain
-    block= 0
-    [../]
 
   [./stress]
     type = ComputeLinearElasticStress
-    block= '0 1 2'
   [../]
 []
 
@@ -135,7 +139,6 @@
     [./TensorMechanics]
       displacements = 'disp_x disp_y'
       use_displaced_mesh = false
-      block='0 1 2'
     [../]
 []
 
@@ -165,16 +168,13 @@
   [./strain_xx]
     type = ElementAverageValue
     variable = strain_xx
-    block = 2
   [../]
   [./strain_yy]
     type = ElementAverageValue
     variable = strain_yy
-    block = 2
   [../]
   [./strain_zz]
     type = ElementAverageValue
     variable = strain_zz
-    block = 2
   [../]
 []

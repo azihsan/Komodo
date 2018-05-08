@@ -13,16 +13,15 @@
 #include "ModulesApp.h"
 #include "MooseSyntax.h"
 
-// New Material in Tensor Mechanics
+// New Materials Object
 #include "ComputeDislocationDensityEigenstrain.h"
 
-// New Aux kernel for exploit data from Dislocation density
+// New AuxKernel for generating dislocation and slip field
 #include "GaussianDislocationDensity.h"
 #include "Gaussian2DDislocationDensity.h"
 #include "SlipElement.h"
 
-// New MeshModifier for defining 1D dislocation bundle
-#include "SubdomainDislocationBundle.h"
+
 
 template <>
 InputParameters
@@ -63,18 +62,11 @@ KomodoApp::registerObjects(Factory & factory)
   // Register  dislocation density eigenstrain
   registerMaterial(ComputeDislocationDensityEigenstrain);
 
-<<<<<<< HEAD
-  // new register dislocation density aux
-  registerAux(DislocationDensityAux);
-
-  // new register subdomain dislocation bundle
-  registerMeshModifier(SubdomainDislocationBundle);
-=======
   // new register aux kernel
   registerAux(GaussianDislocationDensity);
   registerAux(Gaussian2DDislocationDensity);
   registerAux(SlipElement);
->>>>>>> devel
+
 }
 
 void

@@ -21,8 +21,6 @@
 #include "Gaussian2DDislocationDensity.h"
 #include "SlipElement.h"
 
-
-
 template <>
 InputParameters
 validParams<KomodoApp>()
@@ -66,7 +64,6 @@ KomodoApp::registerObjects(Factory & factory)
   registerAux(GaussianDislocationDensity);
   registerAux(Gaussian2DDislocationDensity);
   registerAux(SlipElement);
-
 }
 
 void

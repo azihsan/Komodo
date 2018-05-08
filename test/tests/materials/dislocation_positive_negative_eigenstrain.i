@@ -77,6 +77,7 @@
     sigma_x  = 5
     sigma_y = 5
     variable = rho_positive
+    execute_on = INITIAL
   [../]
   [./rho_negative]
     type = Gaussian2DDislocationDensity
@@ -85,12 +86,14 @@
     sigma_x  = 5
     sigma_y = 5
     variable = rho_negative
+    execute_on = INITIAL
   [../]
   [./slip_element]
     type = SlipElement
     positive_dislocation = rho_positive
     negative_dislocation = rho_negative
     variable = slip_element
+    execute_on = INITIAL
   [../]
 []
 

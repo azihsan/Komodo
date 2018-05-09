@@ -6,9 +6,8 @@ InputParameters
 validParams<GaussianDislocationDensity>()
 {
   InputParameters params = validParams<AuxKernel>();
-  params.addClassDescription("Compute dislocation density based on gaussian distribution");
-
-  params.addRequiredParam<Real>("x_center", "center of gaussian dislocation density");
+  params.addClassDescription("Generate a bundle of dislocation density based on 1D Gaussian scalar field");
+  params.addRequiredParam<Real>("x_center", "Center of gaussian dislocation density on local coordinate-x");
   params.addParam<Real>("sigma_x", 1.0, "Spread of the curve in the x direction (sigma_x)");
   params.addParam<unsigned int>("N", 100, "Number of discrete dislocations on one bundle");
   return params;
@@ -27,11 +26,17 @@ GaussianDislocationDensity::GaussianDislocationDensity(const InputParameters & p
 Real
 GaussianDislocationDensity::computeValue()
 {
-  Real h = 1; // height of slip lamella
-  Real x =
-      _q_point[_qp](0); // local x coordinate of bundle fed into 1D gaussian distribution equation
-  Real A = _N / (h * _sigma_x * std::sqrt(2)); // Amplitude of dislocation bundle
+  /// height of slip lamella
+  Real h = 1;
 
+  /// local x coordinate of bundle fed into 1D gaussian distribution equation
+  Real x = _q_point[_qp](0);
+
+  /// Amplitude of dislocation bundle
+  Real A = _N / (h * _sigma_x * std::sqrt(2));
+
+
+  /// Calculate the dislocation density field
   if (x >= _x_min && x <= _x_max)
     return A * std::exp(-(((x - _x_center) * (x - _x_center)) / (std::sqrt(2) * _sigma_x)));
 

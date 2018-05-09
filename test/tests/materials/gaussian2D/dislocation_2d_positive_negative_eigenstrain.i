@@ -33,7 +33,18 @@
     order = CONSTANT
     family = MONOMIAL
   [../]
-  #instead of value is zero we still have to declare positive density due to slip element need the variable 
+  [./stress_xx]
+    order = CONSTANT
+    family = MONOMIAL
+  [../]
+  [./stress_yy]
+    order = CONSTANT
+    family = MONOMIAL
+  [../]
+  [./stress_xy]
+    order = CONSTANT
+    family = MONOMIAL
+  [../]
   [./rho_positive]
     order = CONSTANT
     family = MONOMIAL
@@ -71,16 +82,46 @@
     index_i = 2
     index_j = 2
   [../]
+  [./stress_xx]
+    type = RankTwoAux
+    rank_two_tensor = stress
+    variable = stress_xx
+    index_i = 0
+    index_j = 0
+  [../]
+  [./stress_yy]
+    type = RankTwoAux
+    rank_two_tensor = stress
+    variable = stress_yy
+    index_i = 1
+    index_j = 1
+  [../]
+  [./stress_xy]
+    type = RankTwoAux
+    rank_two_tensor = stress
+    variable = stress_xy
+    index_i = 0
+    index_j = 1
+  [../]
+
+  [./rho_positive]
+    type = Gaussian2DDislocationDensity
+    x_center = 10
+    y_center = 10
+    sigma_x  = 5
+    sigma_y = 5
+    variable = rho_positive
+    execute_on = INITIAL
+  [../]
   [./rho_negative]
     type = Gaussian2DDislocationDensity
-    x_center = 20
-    y_center = 20
+    x_center = 30
+    y_center = 30
     sigma_x  = 5
     sigma_y = 5
     variable = rho_negative
     execute_on = INITIAL
   [../]
-
   [./slip_element]
     type = SlipElement
     positive_dislocation = rho_positive

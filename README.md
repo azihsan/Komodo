@@ -1,4 +1,4 @@
-Komodo(Kontinuum Dislocation on Moose Framework)
+Komodo (Kontinuum Dislocation on Moose Framework)
 =====
 
 As shown in [Wu R., Sandfeld S. (2016) Some Steps towards Modelling of Dislocation Assisted Rafting: A Coupled 2D Phase Field — Continuum Dislocation Dynamics Approach. In: The Minerals, Metals & Materials Society (eds) TMS 2016 145th Annual Meeting & Exhibition. Springer, Cham](https://link.springer.com/chapter/10.1007/978-3-319-48254-5_77#citeas) the initial dislocation has to be generated in order to couple with Phase Field Method.

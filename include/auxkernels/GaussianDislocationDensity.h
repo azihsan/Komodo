@@ -3,27 +3,26 @@
 
 #include "AuxKernel.h"
 
+
+// forward declarations
 class GaussianDislocationDensity;
 
 template <>
 InputParameters validParams<GaussianDislocationDensity>();
+
 /**
-* This AuxKernel object is used to generate dislocation based on 1D Gaussian Distribution.
-* To be exact later on this object will generate dislocation field.
+* This AuxKernel object is used to generate a dislocation bundle based on 1D Gaussian Distribution.
+* Later on this object will generate dislocation field either positive or negative dislocation.
 * Note :
 *
-*   1. Dislocation will act continuum-like dislocation dynamics.
+*   1. Continuum dilocation dynamic model for edge dislocations.
 *
 *   2. Since this is AuxKernel, an AuxVariable object(_rho_negative & _rho_positive)
 *   need to be declared first then coupled with this object.
 *
 *   3. AuxVariable is set so that we have two dislocations,
 *    there are positive dislocation and negative dislocation.
-*
-**/
-
-// forward declarations
-
+*/
 class GaussianDislocationDensity : public AuxKernel
 {
 public:
@@ -32,17 +31,23 @@ public:
   virtual ~GaussianDislocationDensity() {}
 
 protected:
+  /// virtual real(double) function to calculate the variable field on each node/element
   virtual Real computeValue() override;
 
-  const Real _x_center; // Gaussian center coordinate-x
+  /// Gaussian center coordinate-x
+  const Real _x_center;
 
-  const Real _sigma_x; // sigma x or spread x
+  /// sigma x or spread x
+  const Real _sigma_x;
 
-  const unsigned int _N; // number of dislocation of a bundle
+  /// number of dislocation of a bundle
+  const unsigned int _N;
 
 private:
+  /// minimum local x coordinate of the bundle
   Real _x_min;
 
+  /// maximum local x coordinate of the bundle
   Real _x_max;
 };
 

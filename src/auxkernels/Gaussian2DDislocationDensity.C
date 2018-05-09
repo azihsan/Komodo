@@ -5,9 +5,12 @@ InputParameters
 validParams<Gaussian2DDislocationDensity>()
 {
   InputParameters params = validParams<AuxKernel>();
-  params.addClassDescription("Generate a bundle of dislocation density based on 2D Gaussian scalar field");
-  params.addRequiredParam<Real>("x_center", "Center of gaussian dislocation density on local coordinate-x");
-  params.addRequiredParam<Real>("y_center", "Center of gaussian dislocation density on local coordiante-y");
+  params.addClassDescription(
+      "Generate a bundle of dislocation density based on 2D Gaussian scalar field");
+  params.addRequiredParam<Real>("x_center",
+                                "Center of gaussian dislocation density on local coordinate-x");
+  params.addRequiredParam<Real>("y_center",
+                                "Center of gaussian dislocation density on local coordiante-y");
   params.addParam<Real>("sigma_x", 1.0, "Spread of the curve in the x direction (sigma_x)");
   params.addParam<Real>("sigma_y", 1.0, "Spread of the curve in the y direction (sigma_x)");
   params.addParam<unsigned int>("N", 100, "Number of discrete dislocations on one bundle");

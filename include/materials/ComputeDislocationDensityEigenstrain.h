@@ -11,11 +11,13 @@ template <>
 InputParameters validParams<ComputeDislocationDensityEigenstrain>();
 
 /**
-* ComputeDislocationDensityEigenstrain  is class to calculate eigenstrain due to dislocation, slip element(_s_var) field is coupled into this object then
+* ComputeDislocationDensityEigenstrain  is class to calculate eigenstrain due to dislocation, slip
+* element(_s_var) field is coupled into this object then
 *
 * _eigenstrain[_qp] = sign(b) * b * _s_var.
 *
-* The eigenstrain itself will be fed into ComputeSmallStrain object so that we could get elastic strain(mechanical strain)
+* The eigenstrain itself will be fed into ComputeSmallStrain object so that we could get elastic
+* strain(mechanical strain)
 */
 class ComputeDislocationDensityEigenstrain : public ComputeEigenstrainBase
 {

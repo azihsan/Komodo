@@ -3,7 +3,6 @@
 
 #include "AuxKernel.h"
 
-
 // forward declarations
 class GaussianDislocationDensity;
 

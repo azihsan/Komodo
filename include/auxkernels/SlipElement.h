@@ -10,8 +10,10 @@ class SlipElement;
 template <>
 InputParameters validParams<SlipElement>();
 /**
-* This AuxKernel object is to geneated slip distribution field. It takes slip_element field of AuxVariables
-* Two variables need to couple into this object, they are positive dislocation and negative dislocation.
+* This AuxKernel object is to geneated slip distribution field. It takes slip_element field of
+*AuxVariables
+* Two variables need to couple into this object, they are positive dislocation and negative
+*dislocation.
 *
 * Later on, the slip_element field will be fed into materials object to calculate eigenstrain.
 *

@@ -6,7 +6,8 @@ InputParameters
 validParams<SlipElement>()
 {
   InputParameters params = validParams<AuxKernel>();
-  params.addClassDescription("Compute slip distribution due to dislocation density (positive and negative) of an element");
+  params.addClassDescription(
+      "Compute slip distribution due to dislocation density (positive and negative) of an element");
   params.addRequiredCoupledVar("positive_dislocation", "positive dislocation");
   params.addRequiredCoupledVar("negative_dislocation", "negative dislocation");
   return params;
@@ -33,7 +34,7 @@ SlipElement::computeDeltaX()
     if (node[0](0) > x_max)
       x_max = node[0](0);
   }
-  return  std::abs(x_max - x_min);
+  return std::abs(x_max - x_min);
 }
 
 Real

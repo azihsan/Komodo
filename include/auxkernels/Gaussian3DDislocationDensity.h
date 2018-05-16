@@ -74,7 +74,6 @@ private:
 
   /// maximum local z coordinate of the bundle
   Real _z_max;
-
 };
 
 #endif // GAUSSIAN3DDISLOCATIONDENSITY_H

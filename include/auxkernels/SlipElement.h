@@ -35,7 +35,6 @@ protected:
 
   /// coupled variable hold the negative dislocation density
   const VariableValue & _rho_negative;
-
 };
 
 #endif // SLIPELEMENT_H

@@ -152,10 +152,13 @@ libmoose-dbg*
 */doc/doxygen/html/*
 */doc/doxygen/**/*
 moose/doc/doxygen/html/*
+komodo/doc/doxygen/html/*
 modules/*/doc/doxygen/html/*
 tutorials/*/*/doc/doxygen/html/*
 ICE/
 framework/contrib/asio/
+/Users/ahmadzainulihsan/Documents/Masa_kuliah_S2/Semester_3/PPP/komodo/doc/doxygen/html/*
+
 
 # Restartable Data
 *.rd

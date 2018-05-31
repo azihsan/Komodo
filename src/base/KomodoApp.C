@@ -15,11 +15,13 @@
 
 // New Materials Object
 #include "ComputeDislocationDensityEigenstrain.h"
+#include "ComputeDislocationDensityEigenstrainERF.h"
 
 // New AuxKernel for generating dislocation and slip field
 #include "GaussianDislocationDensity.h"
-#include "Gaussian2DDislocationDensity.h"
-#include "SlipElement.h"
+#include "SlipElementERF.h"
+#include "Slip2DGaussian.h"
+#include "Slip3DGaussian.h"
 
 template <>
 InputParameters
@@ -59,11 +61,13 @@ KomodoApp::registerObjects(Factory & factory)
 
   // Register  dislocation density eigenstrain
   registerMaterial(ComputeDislocationDensityEigenstrain);
+  registerMaterial(ComputeDislocationDensityEigenstrainERF);
 
   // new register aux kernel
   registerAux(GaussianDislocationDensity);
-  registerAux(Gaussian2DDislocationDensity);
-  registerAux(SlipElement);
+  registerAux(SlipElementERF);
+  registerAux(Slip2DGaussian);
+  registerAux(Slip3DGaussian);
 }
 
 void

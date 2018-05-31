@@ -5,12 +5,12 @@
 [Mesh]
   type = GeneratedMesh
   dim  = 2
-  xmax = 40
+  xmax = 8
   xmin = 0
-  ymax = 40
+  ymax = 1
   ymin = 0
-  nx   = 100
-  ny   = 100
+  nx   = 200
+  ny   = 1
 []
 
 [Variables]
@@ -21,18 +21,6 @@
 []
 
 [AuxVariables]
-  [./strain_yy]
-    order = CONSTANT
-    family = MONOMIAL
-  [../]
-  [./strain_xx]
-    order = CONSTANT
-    family = MONOMIAL
-  [../]
-  [./strain_zz]
-    order = CONSTANT
-    family = MONOMIAL
-  [../]
   [./stress_xx]
     order = CONSTANT
     family = MONOMIAL
@@ -54,35 +42,15 @@
     order = CONSTANT
     family = MONOMIAL
   [../]
-  [./slip_element]
+  [./slip_element_negative]
     order = CONSTANT
     family = MONOMIAL
   [../]
 []
 
 
+
 [AuxKernels]
-  [./strain_xx]
-    type = RankTwoAux
-    rank_two_tensor = total_strain
-    variable = strain_xx
-    index_i = 0
-    index_j = 0
-  [../]
-  [./strain_yy]
-    type = RankTwoAux
-    rank_two_tensor = total_strain
-    variable = strain_yy
-    index_i = 1
-    index_j = 1
-  [../]
-  [./strain_zz]
-    type = RankTwoAux
-    rank_two_tensor = total_strain
-    variable = strain_zz
-    index_i = 2
-    index_j = 2
-  [../]
   [./stress_xx]
     type = RankTwoAux
     rank_two_tensor = stress
@@ -104,22 +72,24 @@
     index_i = 0
     index_j = 1
   [../]
-
-  [./rho_positive]
+  [./rho_negative]
     type = GaussianDislocationDensity
-    x_center = 10
-    sigma_x  = 5
-    variable = rho_positive
+    x_center = 4
+    sigma  = 1
+    N = 1
+    variable = rho_negative
     execute_on = INITIAL
   [../]
-  [./slip_element]
-    type = SlipElement
-    positive_dislocation = rho_positive
-    negative_dislocation = rho_negative
-    variable = slip_element
+  [./slip_element_negative]
+    type = SlipElementERF
+    x_center = 4
+    sigma  = 1
+    N = 1
+    burgers_vector = 0.25
+    variable = slip_element_negative
     execute_on = INITIAL
   [../]
-[]
+  []
 
 [BCs]
   [./left]
@@ -128,10 +98,22 @@
     boundary = left
     value = 0.0
   [../]
+  [./right]
+    type = DirichletBC
+    variable = disp_x
+    boundary = right
+    value = 0.0
+  [../]
   [./bottom]
     type = DirichletBC
     variable = disp_y
     boundary = bottom
+    value = 0.0
+  [../]
+  [./top]
+    type = DirichletBC
+    variable = disp_y
+    boundary = top
     value = 0.0
   [../]
 []
@@ -139,14 +121,13 @@
 [Materials]
   [./elasticity_tensor]
     type = ComputeIsotropicElasticityTensor
-    youngs_modulus = 2.1e5
+    youngs_modulus = 8.0e13
     poissons_ratio = 0.3
   [../]
 
   [./eigen_strain]
-    type = ComputeDislocationDensityEigenstrain
-    burgers_vector =  0.001
-    slip_distribution = slip_element
+    type = ComputeDislocationDensityEigenstrainERF
+    negative_dislocation_field = slip_element_negative
     eigenstrain_name = dislocation_eigenstrain
   [../]
 
@@ -175,6 +156,7 @@
     full = true
   [../]
 []
+
 [Executioner]
   type = Steady
 
@@ -189,19 +171,4 @@
   exodus = true
   csv = true
   print_perf_log = true
-[]
-
-[Postprocessors]
-  [./strain_xx]
-    type = ElementAverageValue
-    variable = strain_xx
-  [../]
-  [./strain_yy]
-    type = ElementAverageValue
-    variable = strain_yy
-  [../]
-  [./strain_zz]
-    type = ElementAverageValue
-    variable = strain_zz
-  [../]
 []

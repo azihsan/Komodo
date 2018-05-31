@@ -1,5 +1,4 @@
 #include "ComputeDislocationDensityEigenstrain.h"
-#include "MooseMesh.h"
 
 template <>
 InputParameters
@@ -8,29 +7,21 @@ validParams<ComputeDislocationDensityEigenstrain>()
   InputParameters params = validParams<ComputeEigenstrainBase>();
   params.addClassDescription(
       "Computes Eigenstrain based on gaussian dislocation density distribution");
-  params.addParam<Real>("burgers_vector", 0.0001, "Burgers Vector");
   params.addRequiredCoupledVar("slip_distribution", "Slip distribution");
   return params;
 }
 
 ComputeDislocationDensityEigenstrain::ComputeDislocationDensityEigenstrain(
     const InputParameters & parameters)
-  : ComputeEigenstrainBase(parameters),
-    _b(getParam<Real>("burgers_vector")),
-    _s_var(coupledValue("slip_distribution")),
-    _s(declareProperty<Real>("plastic_slip"))
+  : ComputeEigenstrainBase(parameters), _s_var(coupledValue("slip_distribution"))
 {
 }
 
 void
 ComputeDislocationDensityEigenstrain::computeQpEigenstrain()
 {
-  RankTwoTensor M(1, 1, 1, 0, 0, 0); // shear_eigenstrain
-
-  _s[_qp] = _s_var[_qp]; // passing value from aux variable to material slip property
-
-  Real slip = sign(_b) * _b * _s[_qp];
+  RankTwoTensor M(0, 0, 0, 0, 0, 1); // shear_eigenstrain
 
   // eigenstrain on each element due to dislocation bundles
-  _eigenstrain[_qp] = slip * M;
+  _eigenstrain[_qp] = _s_var[_qp] * M;
 }

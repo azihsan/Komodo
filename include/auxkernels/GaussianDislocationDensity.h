@@ -36,10 +36,10 @@ protected:
   /// Gaussian center coordinate-x
   const Real _x_center;
 
-  /// sigma x or spread x
-  const Real _sigma_x;
+  /// sigma or spread
+  const Real _sigma;
 
-  /// number of dislocation of a bundle
+  /// number of dislocations of a bundle
   const unsigned int _N;
 
 private:
